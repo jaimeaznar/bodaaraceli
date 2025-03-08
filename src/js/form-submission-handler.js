@@ -50,36 +50,85 @@
         return { data: formData, honeypot: honeypot };
     }
 
-    function handleFormSubmit(event) {  // handles form submit without any jquery
-        event.preventDefault();           // we are submitting via xhr below
-        var form = event.target;
-        var formData = getFormData(form);
-        var data = formData.data;
+    function validateForm(form) {
+        const errors = [];
+        const formData = getFormData(form);
+        const data = formData.data;
 
-        // If a honeypot field is filled, assume it was done so by a spam bot.
-        if (formData.honeypot) {
+        // Basic required fields validation
+        if (!data.Familia || data.Familia.trim() === '') {
+            errors.push("Please provide a name/family name.");
+        }
+
+        // Validate adults names if present
+        const adultsCount = parseInt(document.getElementById('asistentes')?.value || 0);
+        for (let i = 0; i < adultsCount; i++) {
+            const adultName = form.querySelector(`input[name="adult_name_${i}"]`)?.value;
+            if (!adultName || adultName.trim() === '') {
+                errors.push(`Please provide a name for additional adult #${i + 1}`);
+            }
+        }
+
+        // Validate children names if present
+        const childrenCount = parseInt(document.getElementById('menores')?.value || 0);
+        for (let i = 0; i < childrenCount; i++) {
+            const childName = form.querySelector(`input[name="child_name_${i}"]`)?.value;
+            if (!childName || childName.trim() === '') {
+                errors.push(`Please provide a name for child #${i + 1}`);
+            }
+        }
+
+        // Hotel validation
+        const selectedRoute = form.querySelector('input[name="ruta"]:checked')?.value;
+        if (selectedRoute === 'SI HOTEL' || selectedRoute === 'AMBOS') {
+            const hotelName = document.getElementById('hotel-name')?.value;
+            if (!hotelName || hotelName.trim() === '') {
+                errors.push("Please specify a hotel name when requesting hotel transport.");
+            }
+        }
+
+        return errors;
+    }
+
+    function handleFormSubmit(event) {
+        event.preventDefault();
+        const form = event.target;
+
+        // Validate form
+        const errors = validateForm(form);
+
+        // Clear previous error messages
+        const existingErrors = form.querySelectorAll('.alert-danger');
+        existingErrors.forEach(error => error.remove());
+
+        // If there are errors, display them and stop submission
+        if (errors.length > 0) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'alert alert-danger';
+            errorDiv.innerHTML = errors.join('<br>');
+            form.insertBefore(errorDiv, form.firstChild);
             return false;
         }
 
-        // Add the hotel name if it is visible and has a value
-        var hotelNameInput = document.getElementById('hotel-name');
-        if (hotelNameInput && hotelNameInput.value && hotelNameInput.style.display === 'block') {
-            data.append('hotel_name', hotelNameInput.value);
-        }
+        // If validation passes, proceed with submission
+        const formData = getFormData(form);
+        const data = formData.data;
 
+        if (formData.honeypot) {
+            return false;
+        }
 
         disableAllButtons(form);
         var url = form.action;
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url);
-        // xhr.withCredentials = true;
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 form.reset();
                 var formElements = form.querySelector(".form-elements")
                 if (formElements) {
-                    formElements.style.display = "none"; // hide form
+                    formElements.style.display = "none";
                 }
                 var thankYouMessage = form.querySelector(".thankyou_message");
                 if (thankYouMessage) {
@@ -87,7 +136,7 @@
                 }
             }
         };
-        // url encode form data for sending as post data
+
         var encoded = Object.keys(data).map(function (k) {
             return encodeURIComponent(k) + "=" + encodeURIComponent(data[k]);
         }).join('&');
