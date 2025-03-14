@@ -132,127 +132,15 @@
             </div>
         </div>
 
-        <form class="gform needs-validation my-form" method="POST"
-            data-email="theshineswedding@gmail.com"
-            action="https://script.google.com/macros/s/AKfycbwDDw8F3-Jt6iYr3It3ImFIaccN8zyu5WGyuiQBBfX_enk86c6RUN1KRNk4Nr6kBbca/exec">
-            <div class="mb-3">
-                <legend style="color: red;">CONFIRM ATTENDANCE</legend>
-                <p>You can confirm your attendance using the following form
-                    or
-                    by calling or messaging the following mobile number:
-                    +353
-                    834213011 (Araceli) +353 870500974 (Lúí) (WhatsApp
-                    available
-                    if it is more convenient for you)</p>
-                <label for="familia" class="form-label">Name /
-                    Family Name:</label>
-                <input type="text" class="form-control" id="familia"
-                    name="Familia" required>
-                <div class="invalid-feedback">
-                    Please provide a valid name.
-                </div>
+        <div class="card mb-3 mt-3" style="width: 100%; max-width: 30rem;">
+            <div class="card-body">
+
+                <a class="btn btn-success"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLScCOFPvFYFdmt8c3aU8Y1_7naPZb3Qgc4QFKup8cH6NW-iu8g/viewform?usp=header">
+                    Confirm attendance </a>
+
             </div>
-
-            <!-- ASISTENCIA -->
-            <div class="mb-3">
-                <label class="form-label">Attendace:</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio"
-                        name="asistencia" id="radio-group--si" value="si"
-                        required onchange="toggleFormElements(true);">
-                    <label class="form-check-label" for="radio-group--si">
-                        Yes
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio"
-                        name="asistencia" id="radio-group--no" value="no"
-                        onchange="toggleFormElements(false);">
-                    <label class="form-check-label" for="radio-group--no">
-                        No
-                    </label>
-                </div>
-            </div>
-
-            <!-- Número de asistentes -->
-            <div class="mb-3">
-                <label for="asistentes" class="form-label">Number of
-                    attendees:</label>
-                <input type="number" class="form-control" id="asistentes"
-                    name="asistentes" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="menores" class="form-label">Number of attendees
-                    that
-                    will require a kids menu:</label>
-                <input type="number" class="form-control" id="menores"
-                    name="menores" required>
-            </div>
-
-            <!-- Intolerancias/Alergias -->
-            <div class="mb-3">
-                <label for="text-area" class="form-label">Intolerances/Allergies
-                    (Please specify person's name):</label>
-                <textarea class="form-control" id="text-area"
-                    name="Intolerancias" rows="3"></textarea>
-            </div>
-
-            <!-- Ruta -->
-            <fieldset class="mb-3">
-                <legend>Ruta:</legend>
-                <p>¿Do you need transport the day of the wedding?</p>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ruta"
-                        id="radio-group--R1" value="SI HOTEL"
-                        onchange="toggleHotelNameInput(this);">
-                    <label class="form-check-label" for="radio-group--R1">
-                        Yes, from the hotel to the church.
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ruta"
-                        id="radio-group--R2" value="SI IGLESIA"
-                        onchange="toggleHotelNameInput(this);">
-                    <label class="form-check-label" for="radio-group--R2">
-                        Yes, from the church to the reception.
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ruta"
-                        id="radio-group--R3" value="AMBOS"
-                        onchange="toggleHotelNameInput(this);">
-                    <label class="form-check-label" for="radio-group--R3">
-                        Yes, both of the above.
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ruta"
-                        id="radio-group--R4" value="NO"
-                        onchange="toggleHotelNameInput(this);">
-                    <label class="form-check-label" for="radio-group--R4">
-                        No.
-                    </label>
-                </div>
-
-                <!-- Hotel Name Input -->
-                <div class="mb-3 hotel-name" id="hotel-name-div"
-                    style="display: none;">
-                    <label for="hotel-name" class="form-label">Hotel
-                        Name:</label>
-                    <input type="text" class="form-control" id="hotel-name"
-                        name="hotel_name">
-                </div>
-            </fieldset>
-
-            <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary btn-lg">Send</button>
-
-            <!-- Customise the Thankyou Message People See when they submit the form: -->
-            <div class="thankyou_message" style="display:none;">
-                <h2><em>Thank you!</em> We got it.</h2>
-            </div>
-        </form>
+        </div>
 
 
 
